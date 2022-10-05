@@ -35,6 +35,7 @@ function getScreenshot(props) {
   const [pixelratio, setPixelRatio] = useState(2)
   const [format, setFormat] = useState("jpg")
   const [quality, setQuality] = useState(100)
+  const [params, setParams] = useState("")
 
   const toast = useToast()
 
@@ -54,16 +55,16 @@ function getScreenshot(props) {
       return
     }
     setLoading(true)
-    const response = await fetch(
-      `https://api.screenshotone.com/take?access_key=${AccessKey}w&url=${encodeURIComponent(
-        value
-      )}&full_page=${fullpage}&block_chats=true&block_cookie_banners=true&device_scale_factor=${pixelratio}&format=${format}&image_quality=${quality}&cache=false&reduced_motion=true${
-        width ? `&viewport_width=${width}` : ""
-      }${height ? `&viewport_height=${height}` : ""}`,
-      {
-        method: "get",
-      }
-    )
+
+    const URL = `https://api.screenshotone.com/take?access_key=${AccessKey}w&url=${encodeURIComponent(
+      value
+    )}&full_page=${fullpage}&block_chats=true&block_cookie_banners=true&device_scale_factor=${pixelratio}&format=${format}&image_quality=${quality}&cache=false&reduced_motion=true${
+      width ? `&viewport_width=${width}` : ""
+    }${height ? `&viewport_height=${height}` : ""}${params ? params : ""}`
+
+    const response = await fetch(URL, {
+      method: "get",
+    })
     if (response.status === 200) {
       const ImgBlob = await response.blob()
       const blobURL = buildImageURL(ImgBlob)
@@ -216,6 +217,17 @@ function getScreenshot(props) {
                       </Select>{" "}
                     </Stack>
                   </Flex>
+                  <Stack space={3}>
+                    <Label>Extra Params (Start with &amp;)</Label>
+                    <TextInput
+                      type="text"
+                      min={10}
+                      max={100}
+                      placeholder="&amp;dark_mode=true&amp;cache=false"
+                      value={params}
+                      onChange={(event) => setParams(event.currentTarget.value)}
+                    />
+                  </Stack>
                 </Stack>
               </details>
 
