@@ -1,6 +1,8 @@
 # sanity-plugin-asset-source-screenshotone
 
-Sanity Plugin to generate Screenshots from URL
+Sanity Plugin to generate Screenshots from URL.
+
+<img width="1076" alt="CleanShot 2022-10-05 at 15 01 51@2x" src="https://user-images.githubusercontent.com/1884712/194029021-f6ddd42b-51fd-4256-a931-4d5651e0b2c8.png">
 
 ## Installation
 
