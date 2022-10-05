@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-asset-source-screenshotone",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sanity Plugin to generate Screenshots from URL",
   "main": "dist/index.js",
   "scripts": {

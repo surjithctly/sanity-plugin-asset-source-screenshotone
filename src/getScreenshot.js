@@ -57,7 +57,7 @@ function getScreenshot(props) {
     const response = await fetch(
       `https://api.screenshotone.com/take?access_key=${AccessKey}w&url=${encodeURIComponent(
         value
-      )}&full_page=${fullpage}&device_scale_factor=${pixelratio}&format=${format}&image_quality=${quality}&cache=false&reduced_motion=true${
+      )}&full_page=${fullpage}&block_chats=true&block_cookie_banners=true&device_scale_factor=${pixelratio}&format=${format}&image_quality=${quality}&cache=false&reduced_motion=true${
         width ? `&viewport_width=${width}` : ""
       }${height ? `&viewport_height=${height}` : ""}`,
       {
