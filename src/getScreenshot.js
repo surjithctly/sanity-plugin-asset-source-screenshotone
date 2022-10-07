@@ -58,21 +58,21 @@ function getScreenshot(props) {
 
     const URL = `https://api.screenshotone.com/take?access_key=${AccessKey}w&url=${encodeURIComponent(
       value
-    )}&full_page=${fullpage}&block_chats=true&block_cookie_banners=true&device_scale_factor=${pixelratio}&format=${format}&image_quality=${quality}&cache=false&reduced_motion=true${
+    )}&full_page=${fullpage}&block_chats=true&block_cookie_banners=true&device_scale_factor=${pixelratio}&format=${format}&image_quality=${quality}&cache=false&reduced_motion=true&wait_until=networkidle0${
       width ? `&viewport_width=${width}` : ""
     }${height ? `&viewport_height=${height}` : ""}${params ? params : ""}`
 
-    const response = await fetch(URL, {
-      method: "get",
-    })
-    if (response.status === 200) {
+    try {
+      const response = await fetch(URL, {
+        method: "get",
+      })
       const ImgBlob = await response.blob()
       const blobURL = buildImageURL(ImgBlob)
       setBlob(blobURL)
       setLoading(false)
-    } else {
+    } catch (error) {
       // eslint-disable-next-line no-console
-      console.log(response)
+      console.log(error)
       toast.push({
         status: "error",
         title: "Something went wrong, Please check console!",
@@ -218,7 +218,7 @@ function getScreenshot(props) {
                     </Stack>
                   </Flex>
                   <Stack space={3}>
-                    <Label>Extra Params (Start with &amp;)</Label>
+                    <Label>Extra Params</Label>
                     <TextInput
                       type="text"
                       min={10}
