@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import React, {useState} from "react"
-import pluginConfig from "config:asset-source-screenshotone"
+import React, {useState} from 'react'
 import {
   Flex,
   useToast,
@@ -24,24 +23,29 @@ const Img = styled.img`
   max-width: 400px;
 `
 
-function getScreenshot(props) {
-  const [value, setValue] = useState("")
-  const [blob, setBlob] = useState("")
+interface AssetSourceComponentProps {
+  onSelect: (assets: any[]) => void
+  onClose: () => void
+}
+
+export function getScreenshot(props: AssetSourceComponentProps) {
+  const [value, setValue] = useState('')
+  const [blob, setBlob] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const [width, setWidth] = useState("")
-  const [height, setHeight] = useState("")
+  const [width, setWidth] = useState('')
+  const [height, setHeight] = useState('')
   const [fullpage, setFullPage] = useState(true)
   const [pixelratio, setPixelRatio] = useState(2)
-  const [format, setFormat] = useState("jpg")
+  const [format, setFormat] = useState('jpg')
   const [quality, setQuality] = useState(100)
-  const [params, setParams] = useState("")
+  const [params, setParams] = useState('')
 
   const toast = useToast()
 
-  const AccessKey = pluginConfig.AccessKey || null
+  const AccessKey = 'demo' // We'll make this configurable later
 
-  function buildImageURL(ImgBlob) {
+  function buildImageURL(ImgBlob: Blob): string {
     const builder = window.URL || window.webkitURL
     return builder.createObjectURL(ImgBlob)
   }
@@ -202,14 +206,14 @@ function getScreenshot(props) {
                         max={100}
                         placeholder="80"
                         value={quality}
-                        onChange={(event) => setQuality(event.currentTarget.value)}
+                        onChange={(event) => setQuality(Number(event.currentTarget.value))}
                       />
                     </Stack>
                     <Stack space={3} flex={1}>
                       <Label>Device Pixel Ratio</Label>
                       <Select
                         defaultValue={pixelratio}
-                        onChange={(event) => setPixelRatio(event.currentTarget.value)}
+                        onChange={(event) => setPixelRatio(Number(event.currentTarget.value))}
                       >
                         <option value={1}>@1x</option>
                         <option value={2}>@2x</option>

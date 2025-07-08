@@ -1,13 +1,27 @@
 {
   "name": "sanity-plugin-asset-source-screenshotone",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "Sanity Plugin to generate Screenshots from URL",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "sanity.json", "src", "v2-incompatible.js"],
   "scripts": {
+    "build": "pkg-utils build",
+    "clean": "rimraf dist",
+    "dev": "pkg-utils watch --strict",
     "lint": "eslint .",
-    "build": "sanipack build",
-    "watch": "sanipack build --watch",
-    "prepublishOnly": "sanipack build && sanipack verify"
+    "prepublishOnly": "npm run build",
+    "watch": "pkg-utils watch --strict"
   },
   "repository": {
     "type": "git",
@@ -21,20 +35,24 @@
   "author": "Surjith S M <mail@surjithctly.in>",
   "license": "MIT",
   "dependencies": {
-    "@sanity/ui": "^0.37.22",
-    "prop-types": "^15.8.1",
-    "styled-components": "^5.3.6"
+    "@sanity/ui": "^2.0.0",
+    "styled-components": "^6.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-sanity": "^6.0.0",
+    "@sanity/pkg-utils": "^6.0.0",
+    "@types/react": "^18.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-sanity": "^7.0.0",
     "eslint-plugin-react": "^7.31.8",
-    "prettier": "^2.7.1",
-    "sanipack": "^2.1.0"
+    "prettier": "^3.0.0",
+    "rimraf": "^5.0.0",
+    "sanity": "^3.0.0",
+    "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "react": "^17.0.0"
+    "react": "^18.0.0",
+    "sanity": "^3.0.0"
   },
   "bugs": {
     "url": "https://github.com/surjithctly/sanity-plugin-asset-source-screenshotone/issues"
